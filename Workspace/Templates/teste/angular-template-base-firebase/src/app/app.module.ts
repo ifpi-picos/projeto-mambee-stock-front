@@ -9,6 +9,7 @@ import { environment } from '../environments/environment';
 
 import { HomeModule } from './home/home.module';
 import { UsersModule } from './users/users.module';
+import { MessageErrorModule } from './shareds/componets/message-error/message-error.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,6 +21,7 @@ import { UsersModule } from './users/users.module';
     AngularFireAuthModule,
     HomeModule,
     UsersModule,
+    MessageErrorModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

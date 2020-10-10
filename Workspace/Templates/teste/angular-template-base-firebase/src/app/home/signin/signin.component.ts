@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { AuthService } from 'src/app/core/auth/auth.service';
@@ -12,14 +13,24 @@ import Swal from 'sweetalert2';
 export class SigninComponent implements OnInit {
   private email: string;
   private password: string;
-
   // private message: string;
   // private result: string;
   private sendEmail: boolean;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  public signinform: FormGroup;
 
-  ngOnInit(): void {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private formBuilder: FormBuilder
+  ) {}
+
+  ngOnInit(): void {
+    this.signinform = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+    });
+  }
 
   signin(email: string, password: string): void {
     this.authService
