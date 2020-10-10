@@ -12,6 +12,7 @@ import Swal from 'sweetalert2';
 export class SigninComponent implements OnInit {
   private email: string;
   private password: string;
+
   // private message: string;
   // private result: string;
   private sendEmail: boolean;
