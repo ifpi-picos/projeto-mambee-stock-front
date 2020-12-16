@@ -1,0 +1,49 @@
+<div class="container">
+  <h3 class="text-center my-5">INSCREVER-SE</h3>
+  <form [formGroup]="signupForm" class="row" (submit)="signup()">
+    <div class="form-group col-12">
+      <label>Email</label>
+      <input type="email" class="form-control" formControlName="email">
+      <app-message-error
+        message="E-mail inválido"
+        *ngIf="
+          signupForm.get('email').errors?.required &&
+          signupForm.get('email').dirty
+      ">
+      </app-message-error>
+      <app-message-error
+        message="Informe um e-mail válido"
+        *ngIf="
+          signupForm.get('email').errors?.email &&
+          signupForm.get('email').dirty
+      ">
+      </app-message-error>
+    </div>
+    <div class="form-group col-12">
+      <label>Senha</label>
+      <input type="password" class="form-control" formControlName="password">
+      <app-message-error
+        message="Senha inválida"
+        *ngIf="
+          signupForm.get('password').errors?.required &&
+          signupForm.get('password').dirty
+        ">
+      </app-message-error>
+      <app-message-error
+        message="Mínimo de 6 caracteres"
+        *ngIf="
+          signupForm.get('password').errors?.minlength &&
+          signupForm.get('password').dirty
+        ">
+      </app-message-error>
+    </div>
+    <div class="col-12">
+      <button type="submit" class="btn btn-success" [disabled]="signupForm.invalid">Submit</button>
+    </div>
+  </form>
+  <div class="row mt-2">
+    <div class="col-12">
+      <p>Já é um usuário? <a [routerLink]="['']">Login</a></p>
+    </div>
+  </div>
+</div>

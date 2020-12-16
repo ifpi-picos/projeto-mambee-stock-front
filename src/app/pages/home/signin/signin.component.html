@@ -1,0 +1,48 @@
+<default>
+  <div class="content">
+    <div class="container">
+      <h3 class="my-5">LOGIN</h3>
+      <form [formGroup]="signinform" class="column" (submit)="signin()">
+        <div class="form-group col-6">
+          <label>Email</label>
+          <input type="email" class="form-control" formControlName="email">
+          <app-message-error
+            message="E-mail inválido"
+            *ngIf="
+              signinform.get('email').errors?.required &&
+              signinform.get('email').dirty
+          ">
+          </app-message-error>
+          <app-message-error
+            message="Informe um e-mail válido"
+            *ngIf="
+              signinform.get('email').errors?.email &&
+              signinform.get('email').dirty
+          ">
+          </app-message-error>
+        </div>
+        <div class="form-group col-6">
+          <label>Senha</label>
+          <input type="password" class="form-control" formControlName="password">
+          <app-message-error
+            message="Senha inválida"
+            *ngIf="
+              signinform.get('password').errors?.required &&
+              signinform.get('password').dirty
+            ">
+          </app-message-error>
+          <app-message-error
+            message="Mínimo de 6 caracteres"
+            *ngIf="
+              signinform.get('password').errors?.minlength &&
+              signinform.get('password').dirty
+            ">
+          </app-message-error>
+        </div>
+        <div class="col-12">
+          <button type="submit" class="btn btn-success" [disabled]="signinform.invalid">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</default>
