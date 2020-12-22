@@ -64,11 +64,15 @@ export class ItensComponent implements OnInit {
     this.imgItem = img;
   }
   toggleAvailable(id, value){
-    this.userService.updateField(id, 'available', value).then(()=>{
+    console.log(id, value)
+    this.itemService.updateField(id, 'available', value).then(()=>{
       this.getItens()
+    })
+    .catch(error=>{
+      console.log('ocorreu um erro em atualizar a permissão', error)
     })
   }
   editItem(id: string){
-    this.router.navigate(['/editItem', {id_item: id}]);
+    this.router.navigate(['/item-edit', {id_item: id}]);
   }
 }
