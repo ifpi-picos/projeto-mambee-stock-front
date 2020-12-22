@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/kp-testes-psy",
+    "public": "dist",
     "ignore": [
       "firebase.json",
       "**/.*",
