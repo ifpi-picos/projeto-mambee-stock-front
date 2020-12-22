@@ -1,0 +1,80 @@
+<default innerApp="true">
+    <div class="container">
+        <h3 class="text-center my-5">Cadastrar Usuário</h3>
+        <form [formGroup]="userForm" class="column" (submit)="register()">
+          <div class="form-group col-6">
+            <label>Nome</label>
+            <input type="string" class="form-control" formControlName="name">
+            <app-message-error
+              message="Nome inválido"
+              *ngIf="
+                userForm.get('name').errors?.required &&
+                userForm.get('name').dirty
+            ">
+            </app-message-error>
+          </div>
+          <div class="form-group col-6">
+            <label>Matrícula</label>
+            <input type="matriculation" class="form-control" formControlName="matriculation">
+          </div>
+          <div class="form-group col-6">
+            <label>Email</label>
+            <input type="email" class="form-control" formControlName="email">
+            <app-message-error
+              message="E-mail inválido"
+              *ngIf="
+                userForm.get('email').errors?.required &&
+                userForm.get('email').dirty
+            ">
+            </app-message-error>
+            <app-message-error
+              message="Informe um e-mail válido"
+              *ngIf="
+                userForm.get('email').errors?.email &&
+                userForm.get('email').dirty
+            ">
+            </app-message-error>
+          </div>
+          <div class="form-group col-6">
+            <label>Número de Telefone</label>
+            <input type="text" class="form-control" formControlName="phone_number">
+          </div>
+          <div class="form-group col-6">
+            <label>Função</label>
+            <select class="form-control" formControlName="role">
+                <option value="">Função</option>
+                <option value="Admin">Administrador</option>
+                <option value="User">Usuário</option>
+            </select>
+            <app-message-error
+              message="Função inválida"
+              *ngIf="
+                userForm.get('role').errors?.required &&
+                userForm.get('role').dirty
+              ">
+            </app-message-error>
+          </div>
+          <div class="form-group col-6">
+            <label>Senha</label>
+            <input type="password" class="form-control" formControlName="password">
+            <app-message-error
+              message="Senha inválida"
+              *ngIf="
+                userForm.get('password').errors?.required &&
+                userForm.get('password').dirty
+              ">
+            </app-message-error>
+            <app-message-error
+              message="Mínimo de 6 caracteres"
+              *ngIf="
+                userForm.get('password').errors?.minlength &&
+                userForm.get('password').dirty
+              ">
+            </app-message-error>
+          </div>
+          <div class="col-12">
+            <button type="submit" class="btn btn-success" [disabled]="userForm.invalid">Submit</button>
+          </div>
+        </form>
+    </div>    
+</default>
