@@ -12,6 +12,8 @@ import { DefaultModule } from './shared/components/default/default.module';
 import { ItensRegistrationModule } from './pages/itens-registration/itens-registration.module';
 import { NgxMaskModule } from 'ngx-mask';
 import { ItensModule } from './pages/itens/itens.module';
+import { ItemEditModule } from './pages/item-edit/item-edit.module';
+import { UserRegistrationModule } from './pages/user-registration/user-registration.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,7 +28,9 @@ import { ItensModule } from './pages/itens/itens.module';
     MessageErrorModule,
     DefaultModule,
     ItensRegistrationModule,
-    ItensModule
+    ItensModule,
+    ItemEditModule,
+    UserRegistrationModule
   ],
   providers: [],
   bootstrap: [AppComponent],
