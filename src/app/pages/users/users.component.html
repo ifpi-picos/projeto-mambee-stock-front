@@ -1,0 +1,78 @@
+<default innerApp="true">
+  <div class="container-table">
+    <h2>Usuários Cadastrados</h2>
+    <table class="table table-striped table-hover table-bordered col-centered">
+        <thead class="thead-dark">
+            <tr>
+                <th class="text-center">Nome</th>
+                <th class="text-center">Matricula</th>
+                <th class="text-center">Itens em Posse</th>
+                <th class="text-center">Editar</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of users$">
+                <td class="text-center">{{user.name}}</td>
+                <td class="text-center">{{user.matriculation}}</td>
+                <td class="text-center">
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#responsibleItens" (click)="showItensTakeds(user.id, user.name)">
+                        <span class="material-icons">visibility</span>
+                    </button>
+                </td>
+                <td class="text-center">
+                    <button type="button" class="btn btn-warning" (click)="editUser(user.id)">
+                        <span class="material-icons">create</span>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <!--modal-->
+    <div id="responsibleItens" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="messageModalTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content quick-message">
+          <div class="modal-header">
+            <h5 id="messageModalTitle" class="modal-title">
+              Itens sobre responsabilidade deste usuário
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form class="form-resposible-itens" (submit)="addItemToResponsability(userToAddOrRemove.id, userToAddOrRemove.name)" [formGroup]="formResponsibleItem">
+              <div class="form-group">
+                  <label>Adicionar novo item a este usuário</label>
+                  <select class="form-control" formControlName="item">
+                      <option value="">Item</option>
+                      <option *ngFor="let item of itensAvailable" value={{item.name+space+item.id}}>{{item.name}}</option>
+                  </select>
+              </div>
+              <button type="submit" class="btn btn-primary">adicionar</button>
+            </form>
+            <div *ngIf="itensResponsible.length" class="list-group">
+              <div *ngFor="let item of itensResponsible" class="list-group-item list-group-item-action py-4">
+                <div class="d-flex w-100 justify-content-between align-items-center">
+                  <div class="flex-fill">
+                    <p class="mb-1">{{item.name}}</p>
+                  </div>
+                  <div class="d-flex flex-column">
+                    <button type="button" class="btn btn-link text-danger btn-lg p-0" (click)="removeItemToResponsability(item.name, item.id, userToAddOrRemove.id)">
+                      <span class="material-icons">delete</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="!itensResponsible.length" class="text-center">
+              <small class="text-muted">
+                Não há itens
+              </small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--modal-->
+  </div>
+</default>

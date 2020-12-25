@@ -6,6 +6,7 @@ import { ItemEditComponent } from './pages/item-edit/item-edit.component';
 import { ItensRegistrationComponent } from './pages/itens-registration/itens-registration.component';
 import { ItensComponent } from './pages/itens/itens.component';
 import { UserRegistrationComponent } from './pages/user-registration/user-registration.component';
+import { UsersComponent } from './pages/users/users.component';
 
 
 const routes: Routes = [
@@ -15,7 +16,8 @@ const routes: Routes = [
   { path: 'itens-registration', component: ItensRegistrationComponent },
   { path: 'itens', component: ItensComponent },
   { path: 'item-edit', component: ItemEditComponent },
-  { path: 'user-registration', component: UserRegistrationComponent }
+  { path: 'user-registration', component: UserRegistrationComponent },
+  { path: 'users', component: UsersComponent }
 ];
 
 @NgModule({

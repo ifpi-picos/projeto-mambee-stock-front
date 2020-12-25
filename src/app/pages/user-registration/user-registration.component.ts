@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms'
-import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/auth/auth.service';
 import Swal from 'sweetalert2'
 @Component({
@@ -14,7 +13,6 @@ export class UserRegistrationComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private router: Router,
     private formBuilder: FormBuilder
   ) {}
 
@@ -26,6 +24,7 @@ export class UserRegistrationComponent implements OnInit {
       phone_number: [''],
       role: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]],
+      itens_responsible: [{name: '', idItem: ''}]
     });
   }
 

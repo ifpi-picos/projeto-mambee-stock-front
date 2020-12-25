@@ -14,6 +14,7 @@ import { NgxMaskModule } from 'ngx-mask';
 import { ItensModule } from './pages/itens/itens.module';
 import { ItemEditModule } from './pages/item-edit/item-edit.module';
 import { UserRegistrationModule } from './pages/user-registration/user-registration.module';
+import { UsersModule } from './pages/users/users.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -30,7 +31,8 @@ import { UserRegistrationModule } from './pages/user-registration/user-registrat
     ItensRegistrationModule,
     ItensModule,
     ItemEditModule,
-    UserRegistrationModule
+    UserRegistrationModule,
+    UsersModule
   ],
   providers: [],
   bootstrap: [AppComponent],
