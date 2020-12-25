@@ -7,4 +7,9 @@ export class UserModel extends Model {
   phone_number: string;
   password: string;
   role: string;
+  itens_responsible: _itens[];
+}
+class _itens extends Model{
+  name: string;
+  idItem: string;
 }
