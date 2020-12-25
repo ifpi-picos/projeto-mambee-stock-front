@@ -30,26 +30,30 @@ export abstract class FirebaseInterface<T extends Model> implements Crud<T> {
   list(): Observable<T[]> {
     return this.ref.valueChanges();
   }
-
-  listDif(){
-    return this.ref.get()
+  listByField(collection, field, value){
+    return this.firestore
+        .collection(collection, ref => ref.where(field, '==', value))
+        .valueChanges()
   }
-
   createOrUpdate(item: T, uid?: string): Promise<any> {
-    let id = !!uid ? uid : item.id;
-
     if (!item) return;
+    
     let obj = null;
 
-    if (item instanceof this.type) obj = item.toObject();
-    else obj = item;
-    if (!!id) {
-      return this.ref.doc(id).set(obj);
-    } else
+    if (item instanceof this.type){
+      obj = item.toObject();
+    } else {
+      obj = item;
+    }
+    if (uid) {
+      obj.id = uid
+      return this.ref.doc(uid).set(obj);
+    } else {
       return this.ref.add(obj).then((res) => {
         obj.id = res.id; // Para salvar com o atributo id
         this.ref.doc(res.id).set(obj);
       });
+    }
   }
 
   delete(id: string): Promise<void> {
@@ -70,12 +74,20 @@ export abstract class FirebaseInterface<T extends Model> implements Crud<T> {
   }
   async fieldIncrementOrDecrement(id: string, field: string, value: any){
     let isNegative: boolean
-    this.get(id)
+    await this.get(id)
       .subscribe(doc=>{
-        if((doc[field] + value) >= 0){isNegative = true}  
+        if((doc[field] + value) >= 0){isNegative = false}  
       })
-      if(!isNegative){
+      if(isNegative ==  false){
         return this.ref.doc(id).update({[field]:  firebase.firestore.FieldValue.increment(value)})
+      }
+  }
+  addOrRemoveInArray(add: boolean, id: string, field: string, value: any){
+      if(add == true){
+        return this.ref.doc(id).update({[field]:  firebase.firestore.FieldValue.arrayUnion(value)})
+      }
+      else{
+        return this.ref.doc(id).update({[field]:  firebase.firestore.FieldValue.arrayRemove(value)})
       }
   }
 }

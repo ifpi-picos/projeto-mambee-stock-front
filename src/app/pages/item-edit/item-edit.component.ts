@@ -12,40 +12,42 @@ import  Swal from 'sweetalert2'
 export class ItemEditComponent implements OnInit {
   public itensForm: FormGroup;
   public id_item: string;
+  public users: [];
   constructor(
     private itemService: ItemService,
     private formBuilder: FormBuilder,
-    private activeRoute: ActivatedRoute
+    private activeRoute: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {
     this.itensForm = this.formBuilder.group({
+      available: true,
+      currentResponsible: {},
+      id: '',
       name: ['', [Validators.required]],
       source: ['', Validators.required],
-      currentResponsible: [''],
-      available: [false],
     });
     this.activeRoute.params.forEach((params: Params) => {
       this.id_item = params['id_item'];
-      this.itemService.get(this.id_item).subscribe(resp=>{
-        this.itensForm.patchValue({
-          name: resp.name,
-          source: resp.source,
-          currentResponsible: resp.currentResponsible,
-          available: resp.available
-        })
+    })
+    this.itemService.get(this.id_item).subscribe(resp=>{
+      this.itensForm.patchValue({
+        available: resp.available,
+        currentResponsible: resp.currentResponsible,
+        id: this.id_item,
+        name: resp.name,
+        source: resp.source,
       })
     })
   }
-  registerItem(): void {
+  editItem(itemId: string): void {
     const item = {...this.itensForm.getRawValue()}
-    this.itemService.createOrUpdate(item).then(()=>{
-      alert('item cadastrado com sucesso!')
+    this.itemService.createOrUpdate(item, itemId).then(()=>{
+      Swal.fire('item editado com sucesso!')
     })
     .catch(error=>{
-      alert('erro ao cadastrar item')
-      console.log('erro ao cadastrar item', error)
-    })      
-    
+      Swal.fire('erro ao editar item')
+      console.log('erro ao editar item', error)
+    })       
   }
 }

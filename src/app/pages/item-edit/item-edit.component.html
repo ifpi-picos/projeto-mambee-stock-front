@@ -2,7 +2,7 @@
     <div class="content">
       <div class="container div-form">
         <h3 class="text-center my-5">EDITAR ITEM</h3>
-        <form [formGroup]="itensForm" (submit)="registerItem()">
+        <form [formGroup]="itensForm" (submit)="editItem(id_item)">
           <div class="form-group col-6">
                 <label>Nome</label>
                 <input type="text" class="form-control" formControlName="name" placeholder="Nome Sobrenome">
@@ -21,30 +21,6 @@
                   *ngIf="itensForm.get('source').errors?.required && itensForm.get('source').dirty">
               </app-message-error>
           </div>
-          <div class="form-group col-6">
-              <label for="currentResponsible">Responsável Atual</label>
-              <select class="form-control" id="currentResponsible" name="currentResponsible" formControlName="currentResponsible">
-                <option value="">Responsável</option>
-                <option value="">Responsável</option>
-              </select>
-              <app-message-error
-                  message="valor invalido"
-                  *ngIf="itensForm.get('currentResponsible').errors?.required && itensForm.get('currentResponsible').dirty">
-              </app-message-error>
-          </div>
-          <!-- <div class="form-group col-6 input-image">
-            <p>Foto do CRP</p>
-            <label for="input-image">
-              <input
-                type="file"
-                class="form-control"
-                id="input-image"
-                #inputFile
-                (change)="getImage($event)"
-              >
-              Foto<span class="material-icons">camera_alt</span>
-            </label>
-          </div> -->
           <div class="col-12 form-button text-center">
             <button type="submit" class="btn btn-success" [disabled]="itensForm.invalid">Editar</button>
           </div>

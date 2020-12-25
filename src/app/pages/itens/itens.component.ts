@@ -34,10 +34,8 @@ export class ItensComponent implements OnInit {
   }
   getItens(){
     this.itens$ = []
-    this.itemService.listDif().subscribe(itens=>{
-      itens.forEach(item=>{
-        this.itens$.push({...item.data(), id: item.id})
-      })
+    this.itemService.list().subscribe(itens=>{
+      this.itens$ = itens
     })
   }
   deleteItem(id, urlImg){
@@ -58,18 +56,6 @@ export class ItensComponent implements OnInit {
           alert('item deletado')
         })
       }
-    })
-  }
-  showItem(img){
-    this.imgItem = img;
-  }
-  toggleAvailable(id, value){
-    console.log(id, value)
-    this.itemService.updateField(id, 'available', value).then(()=>{
-      this.getItens()
-    })
-    .catch(error=>{
-      console.log('ocorreu um erro em atualizar a permissão', error)
     })
   }
   editItem(id: string){
