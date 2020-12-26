@@ -1,1 +1,44 @@
-<p>user-edit works!</p>
+<default innerApp="true">
+    <div class="container">
+        <h3 class="text-center my-5">Editar Informações Usuário</h3>
+        <form [formGroup]="userForm" class="column" (submit)="edit()">
+          <div class="form-group col-6">
+            <label>Nome</label>
+            <input type="string" class="form-control" formControlName="name">
+            <app-message-error
+              message="Nome inválido"
+              *ngIf="
+                userForm.get('name').errors?.required &&
+                userForm.get('name').dirty
+            ">
+            </app-message-error>
+          </div>
+          <div class="form-group col-6">
+            <label>Matrícula</label>
+            <input type="matriculation" class="form-control" formControlName="matriculation">
+          </div>
+          <div class="form-group col-6">
+            <label>Número de Telefone</label>
+            <input type="text" class="form-control" formControlName="phone_number">
+          </div>
+          <div class="form-group col-6">
+            <label>Função</label>
+            <select class="form-control" formControlName="role">
+                <option value="">Função</option>
+                <option value="admin">Administrador</option>
+                <option value="user">Usuário</option>
+            </select>
+            <app-message-error
+              message="Função inválida"
+              *ngIf="
+                userForm.get('role').errors?.required &&
+                userForm.get('role').dirty
+              ">
+            </app-message-error>
+          </div>
+          <div class="col-12">
+            <button type="submit" class="btn btn-success" [disabled]="userForm.invalid">Submit</button>
+          </div>
+        </form>
+    </div>    
+</default>

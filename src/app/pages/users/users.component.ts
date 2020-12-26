@@ -49,7 +49,7 @@ export class UsersComponent implements OnInit {
     })
   }
   editUser(userId: string){
-    this.router.navigate(['/'])
+    this.router.navigate(['user-edit', {id_user: userId}])
   }
   showItensTakeds(userId:string, userName:string){
     this.userToAddOrRemove = {id:userId, name: userName}
