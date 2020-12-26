@@ -15,6 +15,7 @@ import { ItensModule } from './pages/itens/itens.module';
 import { ItemEditModule } from './pages/item-edit/item-edit.module';
 import { UserRegistrationModule } from './pages/user-registration/user-registration.module';
 import { UsersModule } from './pages/users/users.module';
+import { UserEditModule } from './pages/user-edit/user-edit.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -32,7 +33,8 @@ import { UsersModule } from './pages/users/users.module';
     ItensModule,
     ItemEditModule,
     UserRegistrationModule,
-    UsersModule
+    UsersModule,
+    UserEditModule
   ],
   providers: [],
   bootstrap: [AppComponent],
