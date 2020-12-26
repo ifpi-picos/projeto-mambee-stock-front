@@ -34,7 +34,7 @@ export class SigninComponent implements OnInit {
       .signin(email, password)
       .then(() => {
         Swal.fire('Login efetuado com sucesso', '', 'success');
-        this.router.navigate(['/', '']);
+        this.router.navigate(['itens']);
       })
       .catch((error) => {
         let errorMessage: string;

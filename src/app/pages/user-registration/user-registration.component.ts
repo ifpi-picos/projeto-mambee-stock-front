@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms'
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/auth/auth.service';
+import { UserService } from 'src/app/core/models/user/user.service';
 import Swal from 'sweetalert2'
 @Component({
   selector: 'app-user-registration',
@@ -13,10 +15,20 @@ export class UserRegistrationComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private auth: AuthService,
+    private userService: UserService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
+    this.auth.authUser().subscribe(user=>{
+      this.userService.get(user.uid).subscribe(doc=>{
+        if(doc.role !== 'admin'){
+          this.router.navigate(['/'])
+        }
+      })
+    })
     this.userForm = this.formBuilder.group({
       name: ['', Validators.required],
       matriculation: [''],

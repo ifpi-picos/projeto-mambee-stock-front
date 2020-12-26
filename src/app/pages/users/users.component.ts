@@ -12,7 +12,6 @@ import Swal from 'sweetalert2'
   styleUrls: ['./users.component.css']
 })
 export class UsersComponent implements OnInit {
-  userRole: string;
   users$: any[] = [];
   formResponsibleItem:  FormGroup; 
   public userToAddOrRemove: any = {
@@ -31,15 +30,17 @@ export class UsersComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
+    this.auth.authUser().subscribe(user=>{
+      this.userService.get(user.uid).subscribe(doc=>{
+        if(doc.role !== 'admin'){
+          this.router.navigate(['/'])
+        }
+      })
+    })
     this.formResponsibleItem = this.formBuilder.group({
       item: ''
     });
     this.getUsers()
-    this.auth.authUser().subscribe(user=>{
-      this.userService.get(user.uid).subscribe(doc=>{
-        this.userRole = doc.role
-      })
-    })
   }
   getUsers(){
     this.users$ = []

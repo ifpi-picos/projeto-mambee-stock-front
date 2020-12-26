@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { AuthService } from 'src/app/core/auth/auth.service';
 import { ItemService } from 'src/app/core/models/item/item.service';
+import { UserService } from 'src/app/core/models/user/user.service';
 import  Swal from 'sweetalert2'
 
 @Component({
@@ -17,9 +19,19 @@ export class ItemEditComponent implements OnInit {
     private itemService: ItemService,
     private formBuilder: FormBuilder,
     private activeRoute: ActivatedRoute,
+    private auth: AuthService,
+    private userService: UserService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
+    this.auth.authUser().subscribe(user=>{
+      this.userService.get(user.uid).subscribe(doc=>{
+        if(doc.role !== 'admin'){
+          this.router.navigate(['/'])
+        }
+      })
+    })
     this.itensForm = this.formBuilder.group({
       available: true,
       currentResponsible: {},
