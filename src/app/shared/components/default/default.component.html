@@ -11,11 +11,17 @@
                         <span class="material-icons">menu</span>
                     </button>
                 </li>
-                <li>
-                    <a (click)="router.navigate(['/'])">bla bla</a>
+                <li *ngIf="userRole == 'admin'">
+                    <a (click)="router.navigate(['itens'])">Lista de Usuários</a>
                 </li>
-                <li>
-                    <a (click)="router.navigate(['/'])">bla bla</a>
+                <li *ngIf="userRole == 'admin'">
+                    <a (click)="router.navigate(['user-registration'])">Cadastrar Usuário</a>
+                </li>
+                <li *ngIf="userRole == 'admin'">
+                    <a (click)="router.navigate(['itens'])">Lista de Itens</a>
+                </li>
+                <li *ngIf="userRole == 'admin'">
+                    <a (click)="router.navigate(['itens-registration'])">Cadastrar Item</a>
                 </li>
                 <li>
                     <a (click)="logout()">Sair</a>
