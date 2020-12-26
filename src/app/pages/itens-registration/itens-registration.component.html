@@ -5,7 +5,7 @@
         <form [formGroup]="itensForm" (submit)="registerItem()">
           <div class="form-group col-6">
                 <label>Nome</label>
-                <input type="text" class="form-control" formControlName="name" placeholder="Nome Sobrenome">
+                <input type="text" class="form-control" formControlName="name" placeholder="Nome">
                 <app-message-error
                 message="Nome invalido"
                 *ngIf="

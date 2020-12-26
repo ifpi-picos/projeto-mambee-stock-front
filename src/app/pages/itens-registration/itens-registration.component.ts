@@ -45,6 +45,7 @@ export class ItensRegistrationComponent implements OnInit {
     const item = {...this.itensForm.getRawValue()}
     this.itemService.createOrUpdate(item).then(()=>{
       Swal.fire('item cadastrado com sucesso!', 'success')
+      this.itensForm.reset()
     })
     .catch(error=>{
       Swal.fire('erro ao cadastrar item', 'error')
