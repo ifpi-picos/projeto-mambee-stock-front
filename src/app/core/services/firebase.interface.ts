@@ -48,7 +48,11 @@ export abstract class FirebaseInterface<T extends Model> implements Crud<T> {
     if (uid) {
       obj.id = uid
       return this.ref.doc(uid).set(obj);
-    } else {
+    } 
+    if(obj.id){
+      return this.ref.doc(obj.id).set(obj);
+    }
+    else{
       return this.ref.add(obj).then((res) => {
         obj.id = res.id; // Para salvar com o atributo id
         this.ref.doc(res.id).set(obj);
