@@ -51,7 +51,7 @@ export class UserEditComponent implements OnInit {
         phone_number: resp.phone_number,
         role: resp.role,
         password: resp.password,
-        itens_responsible: resp.itens_responsible,
+        itens_responsible: resp.itens_in_possession,
         id: resp.id
       })
     })

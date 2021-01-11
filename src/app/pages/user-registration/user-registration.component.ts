@@ -36,7 +36,7 @@ export class UserRegistrationComponent implements OnInit {
       phone_number: [''],
       role: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      itens_responsible: [{name: '', idItem: ''}]
+      itens_in_possession: [{name: '', idItem: ''}]
     });
   }
 

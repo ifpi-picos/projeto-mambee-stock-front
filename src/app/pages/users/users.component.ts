@@ -18,7 +18,7 @@ export class UsersComponent implements OnInit {
     id : '',
     name: ''
   };
-  public itensResponsible: any[] = []
+  public itensInPossession: any[] = []
   public itensAvailable: any[] = []
   public space: string = '-'
   constructor(
@@ -45,6 +45,7 @@ export class UsersComponent implements OnInit {
   getUsers(){
     this.users$ = []
     this.userService.list().subscribe(users=>{
+      // this.users$ = users.filter(user=>user.role == 'user')
       this.users$ = users
     })
   }
@@ -54,7 +55,7 @@ export class UsersComponent implements OnInit {
   showItensTakeds(userId:string, userName:string){
     this.userToAddOrRemove = {id:userId, name: userName}
     this.getItensAvailable()
-    this.getItensResponsible(userId)
+    this.getItensInPossession(userId)
   }
 
   getItensAvailable(){
@@ -63,21 +64,21 @@ export class UsersComponent implements OnInit {
         this.itensAvailable = docs
       })
   }
-  getItensResponsible(userId: string){
-    this.itenService.listByField('itens', 'currentResponsible.idUser', userId)
+  getItensInPossession(userId: string){
+    this.itenService.listByField('itens', 'user_in_possession.id_user', userId)
       .subscribe(docs=>{
-        this.itensResponsible = docs
+        this.itensInPossession = docs
       })
   }
   addItemToResponsability(userId: string, userName: string){
     let [name, idItem] = this.formResponsibleItem.get('item').value.split('-')
-    this.userService.addOrRemoveInArray(true, userId, 'itens_responsible', {name, idItem})
+    this.userService.addOrRemoveInArray(true, userId, 'itens_in_possession', {name, idItem})
     this.itenService.updateField(idItem, 'available', false)
-    this.itenService.updateField(idItem, 'currentResponsible', {idUser: userId, name: userName})
+    this.itenService.updateField(idItem, 'user_in_possession', {id_user: userId, name: userName})
   }
   removeItemToResponsability(itemName, itemId, userId){
-    this.userService.addOrRemoveInArray(false, userId, 'itens_responsible', {name: itemName, idItem: itemId})
+    this.userService.addOrRemoveInArray(false, userId, 'itens_in_possession', {name: itemName, idItem: itemId})
     this.itenService.updateField(itemId, 'available', true)
-    this.itenService.updateField(itemId, 'currentResponsible', {idUser: '', name: ''})
+    this.itenService.updateField(itemId, 'user_in_possession', {id_user: '', name: ''})
   }
 }
