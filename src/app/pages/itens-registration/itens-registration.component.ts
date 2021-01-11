@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 })
 export class ItensRegistrationComponent implements OnInit {
   public itensForm: FormGroup;
+  public users = [];
   constructor(
     private itemService: ItemService,
     private formBuilder: FormBuilder,
@@ -30,21 +31,50 @@ export class ItensRegistrationComponent implements OnInit {
         }
       })
     })
+    this.userService.list().subscribe(resp=>{
+      this.users = resp
+    })
     this.itensForm = this.formBuilder.group({
+      id: `${Date.now()}`,
       name: ['', [Validators.required]],
       source: ['', Validators.required],
-      currentResponsible: {
+      current_responsible: {
         name: '',
-        idUser: ''
+        id_user: ''
+      },
+      user_in_possession: {
+        name: '',
+        id_user: ''
       },
       available: [true],
     });
   }
-
+  selectUser(e, control){
+    let value = e.target.value
+    if(value == ''){
+      this.itensForm.get(control).setValue({name: '', id_user: ''})
+      if(control == 'user_in_possession') this.itensForm.get('available').setValue(true)
+    } else {
+      let name = value.split('/')[0]
+      let id_user = value.split('/')[1]
+      this.itensForm.get(control).setValue({name, id_user})
+      if(control == 'user_in_possession') this.itensForm.get('available').setValue(false)
+    }
+  }
   registerItem(): void {
     const item = {...this.itensForm.getRawValue()}
     this.itemService.createOrUpdate(item).then(()=>{
       Swal.fire('item cadastrado com sucesso!', 'success')
+      let cr = item.current_responsible
+      if(cr.name !== ''){
+        this.userService.addOrRemoveInArray(true, cr.id_user, 'itens_responsible', {name: item.name, id_item: item.id})
+        this.itemService.updateField(item.id, 'available', false)
+      }
+      let uip = item.user_in_possession
+      if(uip.name !== ''){
+        this.userService.addOrRemoveInArray(true, uip.id_user, 'itens_in_possession', {name: item.name, id_item: item.id})
+        this.itemService.updateField(item.id, 'available', false)
+      }
       this.itensForm.reset()
     })
     .catch(error=>{

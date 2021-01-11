@@ -4,22 +4,36 @@
         <h3 class="text-center my-5">CADASTRAR ITENS</h3>
         <form [formGroup]="itensForm" (submit)="registerItem()">
           <div class="form-group col-6">
-                <label>Nome</label>
-                <input type="text" class="form-control" formControlName="name" placeholder="Nome">
-                <app-message-error
-                message="Nome invalido"
-                *ngIf="
-                    itensForm.get('name').errors?.required &&
-                    itensForm.get('name').dirty">
-                </app-message-error>
+            <label for="name">Nome</label>
+            <input type="text" class="form-control" formControlName="name" placeholder="Nome">
+            <app-message-error
+              message="Nome invalido"
+              *ngIf="
+              itensForm.get('name').errors?.required &&
+              itensForm.get('name').dirty">
+            </app-message-error>
           </div>
           <div class="form-group col-6">
-              <label for="source"></label>
-              <input type="text" class="form-control" id="source" placeholder="Fonte" formControlName="source">
-              <app-message-error
-                  message="valor invalido"
-                  *ngIf="itensForm.get('source').errors?.required && itensForm.get('source').dirty">
-              </app-message-error>
+            <label for="source">Fonte</label>
+            <input type="text" class="form-control" id="source" placeholder="Fonte" formControlName="source">
+            <app-message-error
+                message="valor invalido"
+                *ngIf="itensForm.get('source').errors?.required && itensForm.get('source').dirty">
+            </app-message-error>
+          </div>
+          <div class="form-group col-6">
+            <label for="current_responsible">Responsavel</label>
+            <select class="form-control" id="current_responsible" (change)="selectUser($event, 'current_responsible')">
+              <option value="">Responsavel</option>
+              <option *ngFor="let user of users" [value]="user.name+'/'+user.id">{{user.name}}</option>
+            </select>
+          </div>
+          <div class="form-group col-6">
+            <label for="current_responsible">Posse Atual</label>
+            <select class="form-control" id="user_in_possession" (change)="selectUser($event, 'user_in_possession')">
+              <option value="">Posse Atual</option>
+              <option *ngFor="let user of users" [value]="user.name+'/'+user.id">{{user.name}}</option>
+            </select>
           </div>
           <div class="col-12 form-button text-center">
             <button type="submit" class="btn btn-success" [disabled]="itensForm.invalid">Cadastrar</button>
