@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthguardService } from './core/services/authguard.service';
+import { Authguard2Service } from './core/services/authguard2.service';
 import { SigninComponent } from './pages/home/signin/signin.component';
 import { ItemEditComponent } from './pages/item-edit/item-edit.component';
 import { ItensRegistrationComponent } from './pages/itens-registration/itens-registration.component';
@@ -12,7 +13,7 @@ import { UsersComponent } from './pages/users/users.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'signin', pathMatch: 'full' },
-  { path: 'signin', component: SigninComponent },
+  { path: 'signin', component: SigninComponent, canActivate: [Authguard2Service] },
   { path: 'itens-registration', component: ItensRegistrationComponent, canActivate: [AuthguardService] },
   { path: 'itens', component: ItensComponent, canActivate: [AuthguardService] },
   { path: 'item-edit', component: ItemEditComponent, canActivate: [AuthguardService] },
