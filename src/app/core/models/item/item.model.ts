@@ -3,11 +3,12 @@ import { Model } from 'src/app/core/models/model';
 export class ItemModel extends Model {
   name: string;
   available: boolean;
-  currentResponsible: _currentResponsible;
+  current_responsible: _user;
+  user_in_possession: _user;
   source: string;
   photo_url: string;
 }
-class _currentResponsible extends Model {
+class _user extends Model {
   name: string;
-  idUser: string;
+  id_user: string;
 }
