@@ -9,10 +9,10 @@ import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-itens',
-  templateUrl: './itens.component.html',
-  styleUrls: ['./itens.component.css']
+  templateUrl: './itens-list.component.html',
+  styleUrls: ['./itens-list.component.css']
 })
-export class ItensComponent implements OnInit {
+export class ItensListComponent implements OnInit {
   userRole: string;
   itens$: any[] = [];
   imgItem: string;

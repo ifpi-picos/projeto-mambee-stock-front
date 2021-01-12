@@ -9,13 +9,9 @@ import { environment } from '../environments/environment';
 import { HomeModule } from './pages/home/home.module';
 import { MessageErrorModule } from './shared/components/message-error/message-error.module';
 import { DefaultModule } from './shared/components/default/default.module';
-import { ItensRegistrationModule } from './pages/itens-registration/itens-registration.module';
 import { NgxMaskModule } from 'ngx-mask';
 import { ItensModule } from './pages/itens/itens.module';
-import { ItemEditModule } from './pages/item-edit/item-edit.module';
-import { UserRegistrationModule } from './pages/user-registration/user-registration.module';
 import { UsersModule } from './pages/users/users.module';
-import { UserEditModule } from './pages/user-edit/user-edit.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,12 +25,8 @@ import { UserEditModule } from './pages/user-edit/user-edit.module';
     HomeModule,
     MessageErrorModule,
     DefaultModule,
-    ItensRegistrationModule,
     ItensModule,
-    ItemEditModule,
-    UserRegistrationModule,
-    UsersModule,
-    UserEditModule
+    UsersModule
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,15 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ItensComponent } from './itens.component';
-import { DefaultModule } from 'src/app/shared/components/default/default.module';
+import { ItensListModule } from './itens-list/itens-list.module';
+import { ItemEditModule } from './item-edit/item-edit.module';
+import { ItensRegistrationModule } from './itens-registration/itens-registration.module';
 
 
 
 @NgModule({
-  declarations: [ItensComponent],
+  declarations: [],
   imports: [
     CommonModule,
-    DefaultModule
+    ItensListModule,
+    ItemEditModule,
+    ItensRegistrationModule
   ]
 })
 export class ItensModule { }

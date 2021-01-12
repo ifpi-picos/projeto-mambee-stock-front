@@ -4,14 +4,13 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/auth/auth.service';
 import { ItemService } from 'src/app/core/models/item/item.service';
 import { UserService } from 'src/app/core/models/user/user.service';
-import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-users',
-  templateUrl: './users.component.html',
-  styleUrls: ['./users.component.css']
+  templateUrl: './users-list.component.html',
+  styleUrls: ['./users-list.component.css']
 })
-export class UsersComponent implements OnInit {
+export class UsersListComponent implements OnInit {
   users$: any[] = [];
   formResponsibleItem:  FormGroup; 
   public userToAddOrRemove: any = {
